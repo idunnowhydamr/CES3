@@ -1,22 +1,22 @@
 package co.edu.poli.ces3.universitas.controller;
 
 import co.edu.poli.ces3.universitas.dto.DtoUser;
-import co.edu.poli.ces3.universitas.model.UserServlet;
+import co.edu.poli.ces3.universitas.model.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CtrUser {
 
-    private UserServlet modelUser;
+    private User modelUser;
 
     public CtrUser(){
-        modelUser = new UserServlet();
+        modelUser = new User();
     }
 
     public DtoUser addUser(DtoUser student){
         try {
-            UserServlet newUser = modelUser.create(student);
+            User newUser = modelUser.create(student);
             return new DtoUser(newUser.getId(), newUser.getMail(), newUser.getName(), newUser.getPass());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -25,10 +25,10 @@ public class CtrUser {
 
     public ArrayList<DtoUser> getAllUsers() {
         try {
-            ArrayList<UserServlet> users = modelUser.all(); // Llama al método 'all' del modelo
+            ArrayList<User> users = modelUser.all(); // Llama al método 'all' del modelo
             ArrayList<DtoUser> dtoUsers = new ArrayList<>();
 
-            for (UserServlet user : users) {
+            for (User user : users) {
                 DtoUser dtoUser = new DtoUser(
                         user.getId(),
                         user.getMail(),
@@ -46,7 +46,7 @@ public class CtrUser {
 
     public DtoUser getUserById(int userId) {
         try {
-            UserServlet user = modelUser.findById(userId);
+            User user = modelUser.findById(userId);
             if (user != null) {
                 return new DtoUser(user.getId(), user.getMail(), user.getName(), user.getPass());
             } else {
@@ -59,7 +59,7 @@ public class CtrUser {
 
     public DtoUser updateUser(int userId, DtoUser updateUser) {
         try {
-            UserServlet user = new UserServlet(
+            User user = new User(
                     userId,
                     updateUser.getMail(),
                     updateUser.getName(),
@@ -67,7 +67,7 @@ public class CtrUser {
 
             );
 
-            UserServlet updated = modelUser.update(user);
+            User updated = modelUser.update(user);
             return new DtoUser(updated.getId(), updated.getMail(), updated.getName(),updated.getPass());
         } catch (SQLException e) {
             throw new RuntimeException(e);

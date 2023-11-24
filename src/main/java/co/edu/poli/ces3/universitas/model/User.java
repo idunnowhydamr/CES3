@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserServlet extends Conexion implements CRUD{
+public class User extends Conexion implements CRUD{
     public int id;
 
     protected String mail;
@@ -19,18 +19,18 @@ public class UserServlet extends Conexion implements CRUD{
 
     protected String pass;
 
-    public UserServlet(int id, String mail, String name, String pass){
+    public User(int id, String mail, String name, String pass){
         this.id = id;
         this.mail = mail;
         this.name = name;
         this.pass = pass;
     }
 
-    public UserServlet(String mail){
+    public User(String mail){
         this.mail = mail;
     }
 
-    public UserServlet() {
+    public User() {
     }
 
     public int getId(){
@@ -72,7 +72,7 @@ public class UserServlet extends Conexion implements CRUD{
     }
 
     @Override
-    public UserServlet create(DtoUser user) throws SQLException {
+    public User create(DtoUser user) throws SQLException {
         Connection cnn = this.getConexion();
         if(cnn != null) {
             String sql = "INSERT INTO user(mail, name, pass) VALUES('"+user.getMail()+"', '"+user.getName()+"','"+user.getPass()+"')";
@@ -96,9 +96,9 @@ public class UserServlet extends Conexion implements CRUD{
     }
 
     @Override
-    public ArrayList<UserServlet> all() {
+    public ArrayList<User> all() {
         Connection cnn = this.getConexion();
-        ArrayList<UserServlet> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
 
         if (cnn != null) {
             String sql = "SELECT id,mail,name,pass FROM user";
@@ -111,7 +111,7 @@ public class UserServlet extends Conexion implements CRUD{
                     String name = rs.getString("name");
                     String mail = rs.getString("mail");
                     String pass = rs.getString("pass");
-                    UserServlet user = new UserServlet(id, mail, name,pass);
+                    User user = new User(id, mail, name,pass);
                     users.add(user);
                 }
             } catch (SQLException e) {
@@ -133,7 +133,7 @@ public class UserServlet extends Conexion implements CRUD{
 
 
 @Override
-    public UserServlet findById(int userId) throws SQLException {
+    public User findById(int userId) throws SQLException {
         Connection cnn = getConexion();
 
         if (cnn != null) {
@@ -146,7 +146,7 @@ public class UserServlet extends Conexion implements CRUD{
                         String mail = rs.getString("mail");
                         String name = rs.getString("name");
                         String pass = rs.getString("pass");
-                        return new UserServlet(id, mail, name,pass);
+                        return new User(id, mail, name,pass);
                     } else {
                         return null;
                     }
@@ -161,7 +161,7 @@ public class UserServlet extends Conexion implements CRUD{
     }
 
     @Override
-    public UserServlet update(UserServlet user) throws SQLException {
+    public User update(User user) throws SQLException {
         Connection cnn = getConexion();
 
         if (cnn != null) {

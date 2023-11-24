@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CRUD {
-    UserServlet create(DtoUser user) throws SQLException;
+    User create(DtoUser user) throws SQLException;
 
-    public ArrayList<UserServlet> all();
+    public ArrayList<User> all();
 
-    public UserServlet findById(int id) throws SQLException;
+    public User findById(int id) throws SQLException;
 
-    UserServlet update(UserServlet user) throws SQLException;
+    User update(User user) throws SQLException;
 
     void delete(int userId) throws SQLException;
 }
