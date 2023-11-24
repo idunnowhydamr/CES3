@@ -1,7 +1,16 @@
 --
 -- Base de datos: `universitas`
 --
+CREATE DATABASE universitas;
 
+
+CREATE USER 'diego'@'localhost' IDENTIFIED BY '123';
+
+
+GRANT ALL PRIVILEGES ON universitas.* TO 'diego'@'localhost';
+
+
+FLUSH PRIVILEGES;
 -- --------------------------------------------------------
 
 --
